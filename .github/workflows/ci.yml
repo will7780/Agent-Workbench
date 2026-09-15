@@ -1,0 +1,26 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12', '3.13']
+    env:
+      AGENT_WORKBENCH_DISABLE_CENTRAL_ENV: '1'
+      AGENT_WORKBENCH_REQUIRE_INSTALLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install '.[dev,excel]'
+      - run: python -m pytest --confcutdir=. -q
+      - run: python tools/audit_public_tree.py
+      - run: python -m build
+      - run: python tools/audit_distributions.py
+      - run: python -m twine check dist/*
+      - run: agent-workbench --version

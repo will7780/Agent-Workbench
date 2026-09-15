@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-workbench"
+version = "0.1.0a1"
+description = "Local, plugin-based LangGraph agent workbench with auditable execution"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "Agent Workbench contributors"}]
+dependencies = ["langgraph>=1.2.6,<2", "langchain-core>=1.0,<2", "requests>=2.31,<3", "jsonschema>=4.20,<5", "PyYAML>=6,<7"]
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Operating System :: OS Independent"]
+
+[project.optional-dependencies]
+excel = ["openpyxl>=3.1,<4"]
+dev = ["pytest>=8,<10", "build>=1.2", "twine>=6"]
+
+[project.scripts]
+agent-workbench = "agent_workbench.cli:main"
+
+[project.urls]
+Repository = "https://github.com/will7780/Agent-Workbench"
+Issues = "https://github.com/will7780/Agent-Workbench/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+agent_workbench = ["web/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

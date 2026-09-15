@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Workbench | Chat</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="chat">
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Runs">
+      <strong class="brand">Agent Workbench</strong>
+      <button id="newChat" type="button">New conversation</button>
+      <label class="filter-label" for="runFilter">Find a run</label>
+      <input id="runFilter" type="search" maxlength="120" autocomplete="off">
+      <nav id="runList" class="run-list" aria-label="Run history"></nav>
+      <p id="historyNote" class="muted"></p>
+      <span class="local-label">Local session</span>
+    </aside>
+    <main id="main" class="main-panel" tabindex="-1">
+      <header class="topbar">
+        <h1>Chat</h1>
+        <span id="runtimeStatus" role="status">Connecting</span>
+        <a id="peerLink" hidden>Diagnostics</a>
+        <button id="cancelRun" class="danger" type="button" disabled>Cancel run</button>
+      </header>
+      <div class="environment"><span id="environmentLabel">Model mode unknown</span><span id="modeLabel">Execution mode unknown</span></div>
+      <div id="error" class="error" role="alert" hidden></div>
+      <section class="workspace-scroll" aria-label="Conversation">
+        <div class="chat-content">
+          <div id="emptyState" class="empty"><h2>New conversation</h2></div>
+          <section id="messages" aria-label="Messages"></section>
+          <section id="tools" aria-label="Tool activity"></section>
+          <section id="interaction" aria-label="Pending interaction"></section>
+          <section id="finalResponse" aria-label="Run response"></section>
+        </div>
+      </section>
+      <footer class="composer-wrap">
+        <form id="composer" class="composer">
+          <label class="sr-only" for="messageInput">Message</label>
+          <textarea id="messageInput" name="message" rows="2" maxlength="12000" required placeholder="Message" autocomplete="off"></textarea>
+          <button id="sendButton" class="primary icon-button" type="submit" title="Send message" aria-label="Send message">&#8593;</button>
+        </form>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

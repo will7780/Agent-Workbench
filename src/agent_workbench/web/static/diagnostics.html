@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Workbench | Diagnostics</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="diagnostics">
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Runs">
+      <strong class="brand">Agent Workbench</strong>
+      <label class="filter-label" for="runFilter">Find a run</label>
+      <input id="runFilter" type="search" maxlength="120" autocomplete="off">
+      <nav id="runList" class="run-list" aria-label="Run history"></nav>
+      <p id="historyNote" class="muted"></p>
+      <span class="local-label">Local session</span>
+    </aside>
+    <main id="main" class="main-panel diagnostics" tabindex="-1">
+      <header class="topbar">
+        <h1>Diagnostics</h1>
+        <span id="runtimeStatus" role="status">Connecting</span>
+        <a id="peerLink" hidden>Chat</a>
+        <button id="cancelRun" class="danger" type="button" disabled>Cancel run</button>
+      </header>
+      <div class="environment"><span id="environmentLabel">Model mode unknown</span><span id="modeLabel">Execution mode unknown</span></div>
+      <div id="error" class="error" role="alert" hidden></div>
+      <div class="workspace-scroll diagnostic-content">
+        <div id="emptyState" class="empty"><h2>Select a run</h2></div>
+        <div id="diagnosticRun" hidden>
+          <div id="runIdentity" class="run-identity"></div>
+          <nav class="section-nav" aria-label="Diagnostic sections">
+            <a href="#timelineSection">Timeline</a><a href="#messagesSection">Messages</a>
+            <a href="#parametersSection">Parameters</a><a href="#observationsSection">Observations</a>
+            <a href="#contextSection">Context</a><a href="#artifactsSection">Artifacts</a><a href="#resourcesSection">Resources</a>
+          </nav>
+          <section id="timelineSection" class="diagnostic-section">
+            <h2>Timeline</h2>
+            <div class="timeline-grid"><div id="timeline" class="timeline" aria-label="Events"></div><div id="eventDetail" class="event-detail" aria-label="Event detail"></div></div>
+          </section>
+          <section id="messagesSection" class="diagnostic-section"><h2>Messages</h2><div id="messages"></div><div id="finalResponse"></div></section>
+          <section id="parametersSection" class="diagnostic-section"><h2>Parameter Sources &amp; Verification</h2><div id="parameters"></div></section>
+          <section id="observationsSection" class="diagnostic-section"><h2>Observations</h2><div id="observations"></div></section>
+          <section id="contextSection" class="diagnostic-section"><h2>Context</h2><div id="context"></div></section>
+          <section id="artifactsSection" class="diagnostic-section"><h2>Artifact Proof</h2><div id="artifacts"></div></section>
+          <section id="resourcesSection" class="diagnostic-section"><h2>Resources</h2><div id="resources"></div></section>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+include README.md README.en.md LICENSE SECURITY.md CONTRIBUTING.md PUBLIC_FILES.json .gitignore .gitattributes
+recursive-include docs *.md
+recursive-include tools *.py
+recursive-include tests *.py
+recursive-include .github/workflows *.yml
+recursive-include src/agent_workbench/web/static *.html *.css *.js
+global-exclude *.pyc
+global-exclude __pycache__

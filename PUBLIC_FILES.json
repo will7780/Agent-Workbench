@@ -23,11 +23,6 @@
       "bytes": 1219
     },
     {
-      "path": "docs/PLUGINS.md",
-      "sha256": "35da1e9d29f27fd10f29e5df88c94d538b929864457fb1e6d43f0c0d24122837",
-      "bytes": 4801
-    },
-    {
       "path": "LICENSE",
       "sha256": "5280a9354b70920ba79c31b193f056ff918304c47082d2421d67b68cd6c05181",
       "bytes": 1085
@@ -36,11 +31,6 @@
       "path": "MANIFEST.in",
       "sha256": "263047bae88bf31eb868c68ba2fd0195a54e3c4ece6302827de58fe42a4f2982",
       "bytes": 354
-    },
-    {
-      "path": "pyproject.toml",
-      "sha256": "ffb05f3d101948ce6bbd1f7a9523d326217a0cc9ade990893e59f25971fe9739",
-      "bytes": 1104
     },
     {
       "path": "README.en.md",
@@ -56,6 +46,16 @@
       "path": "SECURITY.md",
       "sha256": "286f1062f5cd2c5ad897e9b707486a02cebf9f8d71d31a56b64be6b79de16fba",
       "bytes": 1766
+    },
+    {
+      "path": "docs/PLUGINS.md",
+      "sha256": "35da1e9d29f27fd10f29e5df88c94d538b929864457fb1e6d43f0c0d24122837",
+      "bytes": 4801
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ffb05f3d101948ce6bbd1f7a9523d326217a0cc9ade990893e59f25971fe9739",
+      "bytes": 1104
     },
     {
       "path": "src/agent_workbench/__init__.py",
@@ -488,6 +488,11 @@
       "bytes": 17704
     },
     {
+      "path": "tests/test_public_manifest.py",
+      "sha256": "04b5c6259384da72c6d1d46b37d1f49fcbf31e889f53868dd79b2f8dfef1060f",
+      "bytes": 491
+    },
+    {
       "path": "tests/test_redaction_security.py",
       "sha256": "ffda8e864c9fae4edba880c4b8a0928cbf2dd709d1dccce712b5a94221f305de",
       "bytes": 17875
@@ -514,8 +519,8 @@
     },
     {
       "path": "tools/audit_public_tree.py",
-      "sha256": "526289bd9c3d3bcd296e8455a81a37c89b8926e8839eb92466ea7f2d8c48af54",
-      "bytes": 3426
+      "sha256": "ad13330885a57e08ea5cad34bd5e59c6da548aba7ebe65929f2205c44edcba80",
+      "bytes": 3478
     },
     {
       "path": "tools/browser_web_qa.py",

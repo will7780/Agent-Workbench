@@ -22,7 +22,7 @@ def inventory():
     for pattern in PATTERNS:
         paths.update(ROOT.glob(pattern))
     files, errors = [], []
-    for path in sorted(paths):
+    for path in sorted(paths, key=lambda item: item.relative_to(ROOT).as_posix()):
         relative = path.relative_to(ROOT).as_posix()
         if not path.is_file() or path.is_symlink():
             errors.append({'file': relative, 'reason': 'missing_or_linked_file'})

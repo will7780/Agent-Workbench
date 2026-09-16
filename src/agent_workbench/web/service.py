@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from ..redaction import redact_recursive, redact_text
+from .inspection import catalogue, recorded_flow
 
 IDENTIFIER = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}\Z")
 _HIDDEN = frozenset({"reasoning", "reasoning_content", "chain_of_thought", "scratchpad", "hidden_reasoning", "thinking", "analysis",
@@ -195,6 +196,14 @@ class WebAppService:
         return public_data({"offline": self.offline, "model_label": self.model_label,
                             "event_limit": self.max_events, "run_limit": self.max_history})
 
+    def tool_catalogue(self, tool_name: str | None = None) -> dict:
+        if tool_name is not None:
+            identifier(tool_name)
+        result = catalogue(getattr(self._services, "registry", None), tool_name=tool_name)
+        if result is None:
+            raise WebError("tool_not_found", 404)
+        return public_data(result)
+
     def _decorate(self, result: Any) -> dict:
         view = project_result(result)
         with self._lock:
@@ -203,6 +212,8 @@ class WebAppService:
             view["event_limit"] = self.max_events
             view["operations"] = [self._operation_view(job) for job in self._jobs.values()
                                   if job.get("run_id") == view["run_id"] and job["status"] == "running"]
+        view["flow"] = recorded_flow(view["events"], run_status=view["status"],
+                                     pending=view["pending_interaction"], limit=self.max_events)
         return view
 
     def list_runs(self) -> dict:

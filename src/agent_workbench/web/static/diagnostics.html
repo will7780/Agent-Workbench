@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agent Workbench | Diagnostics</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="/inspection.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body data-page="diagnostics">
@@ -22,6 +23,8 @@
       <header class="topbar">
         <h1>Diagnostics</h1>
         <span id="runtimeStatus" role="status">Connecting</span>
+        <button id="openCatalogue" type="button">&#24037;&#20855;&#30446;&#24405;</button>
+        <button id="openFlow" type="button" disabled>&#36816;&#34892;&#27969;&#31243;</button>
         <a id="peerLink" hidden>Chat</a>
         <button id="cancelRun" class="danger" type="button" disabled>Cancel run</button>
       </header>

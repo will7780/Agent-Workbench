@@ -81,6 +81,19 @@ discovery system. Embedding interfaces and offline fixtures do not constitute a
 bundled production embedding provider. Connector support is based on local
 contract tests, not claims of live deployment certification.
 
+## Read-only Inspection
+
+Both local pages expose the host's registered tool catalogue and the selected
+run's recorded flow. Catalogue inspection uses the registry only: it does not
+call the config provider, load a plugin, read credentials or execute a tool.
+Mode support is a registry declaration, not authorization for the current run.
+The parameter contract is not a snapshot of resolved run-specific arguments.
+
+Flow nodes reference actual events. Repeated graph invocations stay distinct;
+start/completion pairs share a node. Arrows show observed start order, not a
+planned dependency graph. Missing completion and bounded history remain explicit.
+Neither a completed graph node nor a successful tool return is a business score.
+
 ## Trace Export
 
 ```bash

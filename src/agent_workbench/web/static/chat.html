@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agent Workbench | Chat</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="/inspection.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body data-page="chat">
@@ -23,6 +24,8 @@
       <header class="topbar">
         <h1>Chat</h1>
         <span id="runtimeStatus" role="status">Connecting</span>
+        <button id="openCatalogue" type="button">&#24037;&#20855;&#30446;&#24405;</button>
+        <button id="openFlow" type="button" disabled>&#36816;&#34892;&#27969;&#31243;</button>
         <a id="peerLink" hidden>Diagnostics</a>
         <button id="cancelRun" class="danger" type="button" disabled>Cancel run</button>
       </header>
@@ -38,6 +41,12 @@
         </div>
       </section>
       <footer class="composer-wrap">
+        <div class="activity-slot">
+          <div id="assistantActivity" class="assistant-activity" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <span class="activity-spinner" aria-hidden="true"></span>
+            <span id="activityLabel"></span>
+          </div>
+        </div>
         <form id="composer" class="composer">
           <label class="sr-only" for="messageInput">Message</label>
           <textarea id="messageInput" name="message" rows="2" maxlength="12000" required placeholder="Message" autocomplete="off"></textarea>

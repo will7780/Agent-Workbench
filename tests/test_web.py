@@ -161,6 +161,31 @@ class WebTests(unittest.TestCase):
         self.assertEqual(self.runtime.calls[0][1], {"user_request": "hello", "thread_id": "thread_test"})
         self.assertEqual(len(self.runtime.previous_events), 1)
 
+    def test_readonly_catalogue_http_and_inspection_asset(self):
+        from agent_workbench.registry import ToolRegistry
+        self.runtime.services.registry = ToolRegistry(payload={"version": "test", "modules": {
+            "notes": {"actions": {"read": {"risk_level": "L1", "required_params": ["path"]}}}}})
+        for port in (0, 1):
+            status, data, _ = self.request("GET", "/api/catalogue", port_index=port)
+            self.assertEqual(status, 200)
+            self.assertEqual(data["tools"][0]["name"], "notes__read")
+            self.assertEqual(self.request("GET", "/inspection.js", port_index=port)[0], 200)
+        self.assertEqual(self.request("GET", "/api/catalogue/notes__read")[1]["parameter_contract"]["required"], ["path"])
+        self.assertEqual(self.request("GET", "/api/catalogue/missing")[0], 404)
+        self.assertEqual(self.request("GET", "/api/catalogue", headers={"Origin": "https://outside.invalid"})[0], 403)
+        self.assertEqual(self.request("POST", "/api/catalogue", {})[0], 404)
+        self.assertEqual(self.runtime.calls, [])
+
+    def test_run_flow_has_actual_event_references_and_pending_status(self):
+        self.runtime.add(kind="confirmation")
+        self.runtime.runs["run_fixture"]["state"]["agent_trace"] = [
+            {"type": "tool_result", "observation": {"status": "blocked"}}]
+        status, run, _ = self.request("GET", "/api/runs/run_fixture")
+        self.assertEqual(status, 200)
+        self.assertEqual(run["flow"]["nodes"][0]["event_refs"], [0])
+        self.assertEqual(run["flow"]["nodes"][0]["status"], "blocked")
+        self.assertEqual(run["flow"]["nodes"][-1]["status"], "waiting")
+
     def test_long_start_does_not_block_health_and_can_cancel(self):
         status, operation, _ = self.request("POST", "/api/runs", {"user_request": "hold"})
         self.assertEqual(status, 202)

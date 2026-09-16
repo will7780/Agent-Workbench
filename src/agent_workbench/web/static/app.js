@@ -7,6 +7,7 @@ const state = {
   runId: query.get("run_id"), operationId: query.get("operation_id"),
   threadId: crypto.randomUUID(), run: null, runs: [], meta: {}, busy: false,
   generation: 0, eventIndex: 0, pendingKey: "", signatures: new Map(),
+  connectionError: false, operationFailed: false,
 };
 const terminal = new Set(["completed", "failed", "cancelled", "canceled", "rejected", "error", "stopped"]);
 const labels = {runtime_operation_failed: "Runtime operation failed. Review the run before retrying.",
@@ -92,6 +93,8 @@ function selectRun(runId) {
   state.runId = runId;
   state.operationId = null;
   state.busy = false;
+  state.connectionError = false;
+  state.operationFailed = false;
   state.eventIndex = 0;
   state.pendingKey = "";
   state.signatures.clear();
@@ -137,6 +140,8 @@ async function submitOperation(path, payload, {clearComposer = false} = {}) {
   if (state.busy) return;
   const generation = state.generation;
   state.busy = true;
+  state.connectionError = false;
+  state.operationFailed = false;
   showError("");
   updateControls();
   try {
@@ -214,6 +219,22 @@ function updateControls() {
   const inFlight = state.busy || Boolean(state.operationId) || operations.length > 0;
   const pending = Boolean(run?.pending_interaction);
   const running = run && !terminal.has(run.status) && !pending;
+  const activity = $("assistantActivity");
+  if (activity) {
+    const working = running && !["awaiting_input", "awaiting_confirmation", "paused"].includes(run.status);
+    const active = (inFlight || Boolean(working)) && !state.connectionError && !state.operationFailed;
+    activity.hidden = !active;
+    $("composer").setAttribute("aria-busy", String(active));
+    if (active) {
+      const events = run?.events || [];
+      const toolRunning = events.at(-1)?.type === "tool_running";
+      const label = operations.some((job) => job.kind === "cancel")
+        ? "\u6b63\u5728\u505c\u6b62\u2026"
+        : toolRunning ? "\u6b63\u5728\u6267\u884c\u5de5\u5177\u2026"
+          : "\u6b63\u5728\u601d\u8003\u2026";
+      if ($("activityLabel").textContent !== label) $("activityLabel").textContent = label;
+    }
+  }
   $("cancelRun").disabled = !run?.run_id || terminal.has(run?.status) || state.busy || operations.some((job) => job.kind === "cancel");
   if ($("messageInput")) {
     $("messageInput").disabled = inFlight || pending || Boolean(running);
@@ -242,6 +263,7 @@ function renderTimeline(events) {
 }
 function renderRun(run) {
   state.run = run;
+  window.WorkbenchInspection?.update(run);
   const offline = run?.offline ?? state.meta.offline;
   $("environmentLabel").textContent = offline === true ? "Offline / simulated model" : offline === false ? "Connected model" : "Model mode unknown";
   const model = run?.model_label ?? state.meta.model_label;
@@ -308,6 +330,7 @@ async function poll() {
       if (operation.run_id) state.runId = operation.run_id;
       if (operation.status !== "running") {
         state.operationId = null;
+        state.operationFailed = operation.status === "failed";
         if (operation.status === "failed") showError(labels[operation.error_type] || "Runtime operation failed.");
       }
       locationState();
@@ -315,10 +338,13 @@ async function poll() {
     let run = state.runId ? await api(`/api/runs/${encodeURIComponent(state.runId)}`) : null;
     if (generation !== state.generation) return;
     if (run?.thread_id) state.threadId = run.thread_id;
+    state.connectionError = false;
     renderRun(run);
     renderList();
   } catch (error) {
     if (generation === state.generation) {
+      state.connectionError = true;
+      updateControls();
       showError(error.message || "Local service unavailable.");
       $("runtimeStatus").textContent = "Connection or request error";
     }

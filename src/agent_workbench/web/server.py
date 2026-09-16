@@ -27,7 +27,8 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 MAX_BODY_BYTES = 65536
 _RUN = re.compile(r"/api/runs/([A-Za-z0-9][A-Za-z0-9_.:-]{0,127})(?:/(resume|cancel))?\Z")
 _OPERATION = re.compile(r"/api/operations/([A-Za-z0-9_]{1,128})\Z")
-_ASSETS = {"/styles.css": ("styles.css", "text/css"), "/app.js": ("app.js", "text/javascript")}
+_ASSETS = {"/styles.css": ("styles.css", "text/css"), "/app.js": ("app.js", "text/javascript"),
+           "/inspection.js": ("inspection.js", "text/javascript")}
 
 
 def _unique_object(pairs: list) -> dict:
@@ -134,6 +135,10 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
                 return self._json(200, {**self.service.metadata(), "page": self.page, "peer_port": self.peer_port})
             if path == "/api/runs":
                 return self._json(200, self.service.list_runs())
+            if path == "/api/catalogue":
+                return self._json(200, self.service.tool_catalogue())
+            if path.startswith("/api/catalogue/"):
+                return self._json(200, self.service.tool_catalogue(path[len("/api/catalogue/"):]))
             match = _OPERATION.fullmatch(path)
             if match:
                 return self._json(200, self.service.get_operation(match[1]))

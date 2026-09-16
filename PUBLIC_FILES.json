@@ -34,13 +34,13 @@
     },
     {
       "path": "README.en.md",
-      "sha256": "8bb59620fa371e1c4f914929ed48fa9dee49026cf523136fd67434a366c9446a",
-      "bytes": 4265
+      "sha256": "27af2d3d01383748b832efeb6e610959c1280dd49990c6c3b855b16a888a4fca",
+      "bytes": 4750
     },
     {
       "path": "README.md",
-      "sha256": "1ca154133beffe1f0e40291658f7ebdf9d2fc216ae305e4143fbfe79e37f2a9d",
-      "bytes": 4097
+      "sha256": "c1f08759b42c5682a81f02bf817aa7c1dad839b29796fcc537deb03b4d7b21c9",
+      "bytes": 4636
     },
     {
       "path": "SECURITY.md",
@@ -49,8 +49,8 @@
     },
     {
       "path": "docs/PLUGINS.md",
-      "sha256": "35da1e9d29f27fd10f29e5df88c94d538b929864457fb1e6d43f0c0d24122837",
-      "bytes": 4801
+      "sha256": "b995c0d16e937063bcfdb4039651465a8503e662de16466c566b4b6f9abdd958",
+      "bytes": 5535
     },
     {
       "path": "pyproject.toml",
@@ -428,34 +428,44 @@
       "bytes": 216
     },
     {
+      "path": "src/agent_workbench/web/inspection.py",
+      "sha256": "e058d9db435a20de9a8c71c622c0e2b4931dd05aa695ff89d287a42c7a8c2297",
+      "bytes": 4470
+    },
+    {
       "path": "src/agent_workbench/web/server.py",
-      "sha256": "c30ce4c83699bd8f657b432415e13ec316afe34099d29a03ae31a437282dfe6e",
-      "bytes": 10163
+      "sha256": "a868d43bf281c4cd801588e12ddf92093d443156cb3c2480e58975f6a9b02e78",
+      "bytes": 10491
     },
     {
       "path": "src/agent_workbench/web/service.py",
-      "sha256": "2f0d8445aa882b9f8753e2bdd3460d336872ac6e9d83088ef7df18bc27a084a3",
-      "bytes": 17812
+      "sha256": "d7d43b47ce055003f408646fc7028e1410bb3defa8775db6d7590b7e43c08750",
+      "bytes": 18378
     },
     {
       "path": "src/agent_workbench/web/static/app.js",
-      "sha256": "3f77ac26116cb7e61aa6ed011b5972dbaa053fd87c7a53cf1b134273d137c516",
-      "bytes": 18945
+      "sha256": "5a8c433e05c3e9a7285d32f42e03aed4baf890eb14f1899994520f0f24b3b144",
+      "bytes": 20144
     },
     {
       "path": "src/agent_workbench/web/static/chat.html",
-      "sha256": "543ea01ce703165a2ec1d7006c76d9005692f15cfc81d72ad822fbd1afd13458",
-      "bytes": 2404
+      "sha256": "6718432bb43355b808459f3ab865bec854d0219101dc14cc0323b5f33bcfb8e8",
+      "bytes": 2945
     },
     {
       "path": "src/agent_workbench/web/static/diagnostics.html",
-      "sha256": "3b0e54986ce840696e3afd576b21bfe66d7fc81013664bbe328ffbbdd348d4c4",
-      "bytes": 3169
+      "sha256": "d2e5b0647685d90aee3dad8b25f1dccfd8952e4ad28645a5d966fb5cd279a04a",
+      "bytes": 3402
+    },
+    {
+      "path": "src/agent_workbench/web/static/inspection.js",
+      "sha256": "94734c005840809aad84208d0f2cfc1a613958a486fb5da8ab2586e4a07006a3",
+      "bytes": 11180
     },
     {
       "path": "src/agent_workbench/web/static/styles.css",
-      "sha256": "8592b48511889146b24693ecf4293005aa10ebfdd3fb2d7cf50b67e1cbf5ef1e",
-      "bytes": 8472
+      "sha256": "2cadc46500143596dbaa78a4d438011b700332f8d88a1f57be357eeacf73d5cb",
+      "bytes": 12154
     },
     {
       "path": "tests/conftest.py",
@@ -509,8 +519,13 @@
     },
     {
       "path": "tests/test_web.py",
-      "sha256": "6217b8400fd6ba01c44b442c2c7cce070048c172c03bf84366822d94f6fa8202",
-      "bytes": 23038
+      "sha256": "d0019fb26a9805cbc3ac27dc5092c22a0ca8fb22b89fd2c184a9b8bb7aaa3745",
+      "bytes": 24707
+    },
+    {
+      "path": "tests/test_web_inspection.py",
+      "sha256": "15abffa6edaaf107974c3a96a29aa0fbb4d7271e99ec110f9af9fbe60df02c18",
+      "bytes": 4920
     },
     {
       "path": "tools/audit_distributions.py",
@@ -521,6 +536,16 @@
       "path": "tools/audit_public_tree.py",
       "sha256": "ad13330885a57e08ea5cad34bd5e59c6da548aba7ebe65929f2205c44edcba80",
       "bytes": 3478
+    },
+    {
+      "path": "tools/browser_activity_qa.py",
+      "sha256": "1e8b9ebbf3b3e891e89e6711775301fd99eddf9127aa081075e91fe27e556f77",
+      "bytes": 7377
+    },
+    {
+      "path": "tools/browser_inspection_qa.py",
+      "sha256": "4b00b464631f258e3f9c96ba71a06fc742774b9e0fdf2aba2932b0a5b3ed4e3d",
+      "bytes": 7235
     },
     {
       "path": "tools/browser_web_qa.py",

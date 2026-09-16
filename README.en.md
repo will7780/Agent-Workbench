@@ -53,10 +53,17 @@ directory under `~/.agent-workbench/demo/`; override it with `--data-dir`.
 - JSON Schema validation, injectable parameter-intent review, permissions and confirmation.
 - Artifact checks, human review, re-review after changes and version-bound consumption.
 - Structured observations, events, latency and tokens; unknown usage stays unknown.
+- Searchable tool catalogue with registered tools, parameter contracts, risks and declared modes.
+- Recorded run flow with node evidence, waiting states and blocked operations.
+- Immediate chat activity feedback that ends on completion, pauses or errors.
 - Opt-in memory governance, Profile isolation, Skill loading and knowledge connectors.
 - Optional Trace export without an Eval dependency or automatic upload.
 
 ## Connect Your Tools
+
+Both chat and diagnostics include Tool Catalogue and Run Flow controls. The
+host plugin supplies the catalogue; no private company tools are bundled.
+Flow nodes come from recorded events. A completed node is not a business pass.
 
 A registry describes input schemas, risk and execution modes. Your installed
 plugin supplies implementation, model/configuration and content-validation
